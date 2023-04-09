@@ -1,15 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
-const heading = React.createElement('h1', {
-        className: 'header',
-        id: 'header',
-        style: {
-            fontSize: '20px',
-            color: 'red'
-        }
-    },
-    'Hello World!!!');
+import React from 'react';
+import ReactDOM from 'react-dom';
+const Title = <h1>Hello World!</h1>;
+const HeaderComponent = () => {
+  return (
+    <div>
+      {Title}
+      <h2>This is a level 2 heading</h2>
+    </div>
+  );
+};
 const root = ReactDOM.createRoot(
-    document.getElementById("root")
+  document.getElementById('root')
 );
-root.render(heading);
+root.render(<HeaderComponent />);
