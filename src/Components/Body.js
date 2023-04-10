@@ -1,26 +1,43 @@
 import ResturantCard from './RestaurantCard';
-import { restaurantData } from '../config';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Shimmer from './Shimmer';
 
 const Body = () => {
-  const [searchText, setSearchText] =
-    useState('');
-  const [foodList, setFoodList] = useState(
-    restaurantData
-  );
+  const [searchText, setSearchText] = useState('');
+  const [foodList, setFoodList] = useState([]);
+  const [filteredFoodList, setFilteredFoodList] = useState([]);
 
   const filterRestaurantData = () => {
-    const filteredData = restaurantData.filter(
-      (restaurant) => {
-        return restaurant.data.name
-          .toLowerCase()
-          .includes(searchText.toLowerCase());
-      }
-    );
-    setFoodList(filteredData);
+    const filteredData = foodList.filter((restaurant) => {
+      return restaurant.data.name.toLowerCase().includes(searchText.toLowerCase());
+    });
+    setFilteredFoodList(filteredData);
+    console.log('searchText', searchText);
   };
 
-  return (
+  useEffect(() => {
+    try {
+      async function getFoodList() {
+        try {
+          const response = await fetch(
+            'https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.4461342&lng=77.0645413&page_type=DESKTOP_WEB_LISTING'
+          );
+          const json = await response.json();
+          setFoodList(json?.data?.cards[2]?.data?.data?.cards);
+          setFilteredFoodList(json?.data?.cards[2]?.data?.data?.cards);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      getFoodList();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  return foodList.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className='body'>
       <h2>Food Lists</h2>
       <div className='search-container'>
@@ -31,13 +48,12 @@ const Body = () => {
           value={searchText}
           onChange={(e) => {
             setSearchText(e.target.value);
-           filterRestaurantData();
+            filterRestaurantData();
           }}
         />
         <button
           className='search-btn'
           onClick={() => {
-            console.log('search1', searchText);
             filterRestaurantData();
           }}
         >
@@ -45,14 +61,14 @@ const Body = () => {
         </button>
       </div>
       <div className='restaurant-list'>
-        {foodList.map((restaurant) => {
-          return (
-            <ResturantCard
-              {...restaurant.data}
-              key={restaurant.data.id}
-            />
-          );
+        {filteredFoodList.map((restaurant) => {
+          return <ResturantCard {...restaurant.data} key={restaurant.data.id} />;
         })}
+        {filteredFoodList.length === 0 ? (
+          <div className='no-results'>
+            <h3>No Results Found</h3>
+          </div>
+        ) : null}
       </div>
     </div>
   );
