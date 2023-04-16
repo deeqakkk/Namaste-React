@@ -7,7 +7,7 @@ import Error from './Components/Error';
 import Contact from './Components/Contact';
 import Header from './Components/Header';
 import Body from './Components/Body';
-import { Footer } from './Components/Footer';
+import Footer from './Components/Footer';
 import FoodDetail from './Components/RestaurantDetails';
 
 const AppLayout = () => {
