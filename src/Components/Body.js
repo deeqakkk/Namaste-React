@@ -13,7 +13,7 @@ const Body = () => {
       return restaurant.data.name.toLowerCase().includes(searchText.toLowerCase());
     });
     setFilteredFoodList(filteredData);
-    console.log('searchText', searchText);
+
   };
 
   useEffect(() => {
