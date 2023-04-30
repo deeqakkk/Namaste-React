@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import About from './Components/About';
@@ -11,18 +11,23 @@ import Footer from './Components/Footer';
 import FoodDetail from './Components/RestaurantDetails';
 import Profile from './Components/Profile';
 import Shimmer from './Components/Shimmer';
+import UserContext from './utils/userContext';
 
 const Instamart = lazy(() => import('./Components/Instamart'));
 const AppLayout = () => {
+  const [user, setUser] = useState({
+    name: 'Lucifer',
+    email: '0822deepakverma@gmail.com',
+  });
   return (
-    <>
+    <UserContext.Provider value={{ user: user, setUser: setUser }}>
       <Header />
       {/* // header and footer will always be their */}
       <Outlet />
       {/* all the children will go into Outlet */}
       <Footer />
       {/* // header and footer will always be their */}
-    </>
+    </UserContext.Provider>
   );
 };
 const appRouter = createBrowserRouter([
@@ -33,7 +38,7 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Body />,
+        element: <Body userInfo />,
       },
       {
         path: 'about',
@@ -56,7 +61,7 @@ const appRouter = createBrowserRouter([
       {
         path: '/instamart',
         element: (
-          <Suspense fallback={<Shimmer/>}>
+          <Suspense fallback={<Shimmer />}>
             <Instamart />
           </Suspense>
         ),

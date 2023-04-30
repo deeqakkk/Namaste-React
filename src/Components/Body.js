@@ -1,19 +1,20 @@
 import ResturantCard from './RestaurantCard';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Shimmer from './Shimmer';
 import { Link } from 'react-router-dom';
+import UserContext from '../utils/userContext';
 
 const Body = () => {
   const [searchText, setSearchText] = useState('');
   const [foodList, setFoodList] = useState([]);
   const [filteredFoodList, setFilteredFoodList] = useState([]);
+  const { user, setUser } = useContext(UserContext);
 
   const filterRestaurantData = () => {
     const filteredData = foodList.filter((restaurant) => {
       return restaurant.data.name.toLowerCase().includes(searchText.toLowerCase());
     });
     setFilteredFoodList(filteredData);
-
   };
 
   useEffect(() => {
@@ -60,6 +61,15 @@ const Body = () => {
         >
           Search
         </button>
+      </div>
+      <div className='search-container'>
+        <input
+          type='text'
+          className='search-input'
+          placeholder='Type to see the magic'
+          value={user.name}
+          onChange={(e) => setUser({ name: e.target.value, email: 'deepak1@gmail.com' })}
+        />
       </div>
       <div className='restaurant-list'>
         {filteredFoodList.map((restaurant) => {

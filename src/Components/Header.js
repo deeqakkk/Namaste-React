@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Title from './Title';
 import { Link } from 'react-router-dom';
 import useOnline from '../utils/useOnline';
+import UserContext from '../utils/userContext';
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const isOnline = useOnline();
+  const userData = useContext(UserContext);
 
   if (!isOnline) {
     return <h1>Please Check your internet connection!!!</h1>;
@@ -28,11 +30,11 @@ const Header = () => {
             <Link to='/about'>About</Link>
           </li>
           <li>
-            <Link to='/instamart'>  Instamart</Link>
+            <Link to='/instamart'> Instamart</Link>
           </li>
         </ul>
       </div>
-      {isOnline?'✅':'❌'}
+
       {isLoggedIn ? (
         <button
           className='log-out'
@@ -52,6 +54,10 @@ const Header = () => {
           Login
         </button>
       )}
+      <span>
+        {isOnline ? '✅' : '❌'}
+        {userData.user.name}
+      </span>
     </div>
   );
 };
