@@ -13,10 +13,7 @@ const useRestaurant = (resId) => {
       );
     }
     getRestaurantInfo();
-  },[resId]);
-
-  console.log(restaurant, restaurantInfo);
-
+  }, [resId]);
   return { restaurant, restaurantInfo };
 };
 export default useRestaurant;
