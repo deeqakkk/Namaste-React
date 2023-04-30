@@ -36,7 +36,7 @@ const Body = () => {
     }
   }, []);
 
-  return foodList.length === 0 ? (
+  return foodList?.length === 0 ? (
     <Shimmer />
   ) : (
     <div className='body'>
@@ -69,7 +69,7 @@ const Body = () => {
             </Link>
           );
         })}
-        {filteredFoodList.length === 0 ? (
+        {filteredFoodList?.length === 0 ? (
           <div className='no-results'>
             <h3>No Results Found</h3>
           </div>
