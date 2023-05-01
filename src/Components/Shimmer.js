@@ -1,7 +1,7 @@
 const Shimmer = () => {
   let i=1;
   return (
-    <div className='restaurant-list'>
+    <div className='restaurant-list' data-testid='shimmer'>
       {Array(10)
         .fill('')
         .map((e) => (

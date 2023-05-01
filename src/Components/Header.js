@@ -1,9 +1,10 @@
-import { useContext, useState } from 'react';
+import { useContext, useState } from 'react'
 import Title from './Title';
 import { Link } from 'react-router-dom';
 import useOnline from '../utils/useOnline';
 import UserContext from '../utils/userContext';
 import { useSelector } from 'react-redux';
+
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const isOnline = useOnline();
@@ -55,7 +56,7 @@ const Header = () => {
           Login
         </button>
       )}
-      <span>
+      <span data-testid='online-status'>
         {isOnline ? '✅' : '❌'}
         {userData.user.name}
       </span>

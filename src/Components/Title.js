@@ -2,10 +2,7 @@ import logoImg from '../assests/logo.png';
 const Title = () => {
   return (
     <a href='/'>
-      <img
-        src={logoImg} alt='logo'
-        className='logo'
-      />
+      <img data-testid='logo' src={logoImg} alt='logo' className='logo' />
     </a>
   );
 };

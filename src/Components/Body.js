@@ -38,9 +38,9 @@ const Body = () => {
   }, []);
 
   return foodList?.length === 0 ? (
-    <Shimmer />
+    <Shimmer/>
   ) : (
-    <div className='body'>
+    <div className='body' data-testid='body-data'>
       <h2>Food Lists</h2>
       <div className='search-container'>
         <input
@@ -54,6 +54,7 @@ const Body = () => {
           }}
         />
         <button
+        data-testid='search-btn'
           className='search-btn'
           onClick={() => {
             filterRestaurantData();

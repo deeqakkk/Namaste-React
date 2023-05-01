@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
 import { imgCDN } from '../config';
 import { addItem } from '../utils/cartSlice';
 import useRestaurant from '../utils/useRestaurant';
